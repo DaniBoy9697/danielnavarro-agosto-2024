@@ -25,7 +25,7 @@
     } else {
       const fullPokemon = {
         ...props.pokemon,
-        id: props.pokemon.id, // Coloca el id real cuando lo tengas
+        id: props.pokemon.id,
         stats: {
           hp: 0,
           attack: 0,
