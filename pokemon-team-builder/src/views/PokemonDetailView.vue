@@ -13,7 +13,7 @@
     <h3>Evolution Chain</h3>
     <div class="evolution-chain">
       <div v-for="evolution in pokemon.evolutions" :key="evolution.name" class="evolution-item">
-        <img :src="evolution.image" :alt="evolution.name" />
+        <img :src="evolution.image" class="pokemon-image"/>
         <p>{{ evolution.name }}</p>
       </div>
     </div>
@@ -48,6 +48,7 @@
   
   const loadPokemonDetails = async () => {
     const data = await fetchPokemonDetails(route.params.id);
+    console.log(data)
     pokemon.value = data;
   };
   

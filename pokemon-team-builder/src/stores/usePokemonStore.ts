@@ -1,23 +1,9 @@
 import { defineStore } from 'pinia';
 
 interface Pokemon {
+  id: number;
   name: string;
   image: string;
-  id: number;
-  stats: {
-    hp: number;
-    attack: number;
-    defense: number;
-    'special-attack': number;
-    'special-defense': number;
-    speed: number;
-  };
-  types: string[];
-  height: number;
-  weight: number;
-  sound: string;
-  description: string;
-  evolutions: { name: string; image: string }[];
 }
 
 export const usePokemonStore = defineStore('pokemon', {
@@ -32,9 +18,6 @@ export const usePokemonStore = defineStore('pokemon', {
     },
     removePokemonFromTeam(pokemon: Pokemon) {
       this.selectedPokemons = this.selectedPokemons.filter(p => p.id !== pokemon.id);
-    },
-    clearTeam() {
-      this.selectedPokemons = [];
     },
   },
   getters: {

@@ -1,51 +1,73 @@
 <template>
   <div class="stats-chart">
-    <svg width="200" height="100">
-      <polyline
-        :points="points"
-        fill="none"
-        stroke="#1DA1F2"
-        stroke-width="2"
-      />
-      <circle v-for="(stat, index) in stats" :key="index" :cx="index * 40 + 20" :cy="100 - stat" r="4" fill="#1DA1F2" />
-    </svg>
-    <ul class="stat-labels">
-      <li v-for="(stat, index) in statNames" :key="index">{{ stat }}: {{ stats[index] }}</li>
-    </ul>
+    <div class="bars">
+      <div
+        v-for="(stat, index) in stats"
+        :key="index"
+        class="bar"
+        :style="{ height: `${stat}px` }"
+      >
+        <span class="stat-value">{{ stat }}</span>
+      </div>
+    </div>
+    <div class="labels">
+      <span v-for="(label, index) in labels" :key="index" class="label">
+        {{ label }}
+      </span>
+    </div>
   </div>
 </template>
-  
+
 <script setup lang="ts">
-  import { computed } from 'vue';
-  
-  interface Props {
-    stats: number[];
-  }
-  
-  const props = defineProps<Props>();
-  
-  const statNames = ['HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'];
-  
-  const points = computed(() =>
-    props.stats.map((stat, index) => `${index * 40 + 20},${100 - stat}`).join(' ')
-  );
+interface StatsProps {
+  stats: number[]; // Array de números que representan las estadísticas
+  labels: string[]; // Etiquetas para las estadísticas (HP, Attack, Defense, etc.)
+}
+
+const props = defineProps<StatsProps>();
 </script>
-  
+
 <style scoped>
-  .stats-chart {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .stat-labels {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .stat-labels li {
-    margin-top: 0.5rem;
-    text-align: center;
-  }
+.stats-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bars {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.bar {
+  background-color: #1da1f2;
+  width: 30px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  border-radius: 5px;
+  position: relative;
+}
+
+.bar .stat-value {
+  position: absolute;
+  bottom: -20px;
+  font-size: 12px;
+  color: #333;
+}
+
+.labels {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.label {
+  width: 30px;
+  text-align: center;
+  font-size: 12px;
+  color: #333;
+}
 </style>
